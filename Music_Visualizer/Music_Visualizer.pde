@@ -8,11 +8,12 @@ import ddf.minim.ugens.*;
 Minim minim; //Minim Library
 AudioBuffer ab; //Gives access to the samples
 AudioPlayer ap; // Used to play audio
-
-
 AudioInput ai; //Takes in audio
 
-
+int num = 15;
+float[] posX = new float[num];
+float[] posY = new float[num];
+float[] size = new float[num];
 
 void setup() {
   size(1024, 512); // The size of the window in pixels.
@@ -23,25 +24,28 @@ void setup() {
   ap = minim.loadFile("song.mp3");//audio from file
   ap.play(); // Used to play the sudio file assosiated.
   ab = ap.mix;
- 
   lerpedAverage = average;
+  for(int x = 0; x<posX.length;x++){
+    posX[x] = random(0,width);
+    posY[x] = random(0,height);
+    size[x] = random(50,100);
+  }
 }
+
 float average;
 float lerpedAverage = 0;
-
 float angle;
 
 void draw() {
- background(lerpedAverage*4000);
+  background(random(255)*lerpedAverage,random(255)*lerpedAverage,random(255)*lerpedAverage);
+  drawScreenFour();
   stroke(255);
-  drawScreenThree();
+  
   timer();
 }
 void drawScreenOne() {
   float sum = 0;
   for (int i = 0; i<ab.size(); i++) {
-
-    //line(i,height/2,i,(height/2)+ab.get(i)*250);
     sum +=abs(ab.get(i));
     float average = sum/(float)ab.size();
     circle(width/2, height/2, lerpedAverage*1000);
@@ -69,17 +73,12 @@ void drawScreenTwo() {
   }
 }
 void drawScreenThree() {
-  
-  
-   float sum = 0;
+  float sum = 0;
   for (int i = 0; i<ab.size(); i++) {
-
-    
-    //line(i,height/2,i,(height/2)+ab.get(i)*250);
     sum +=abs(ab.get(i));
     float average = sum/(float)ab.size();
     noStroke();
-    fill(lerpedAverage*2000,255,255);
+    fill(lerpedAverage*2000, 255, 255);
     circle(lerpedAverage*1000, height/2, lerpedAverage*1000);
     circle(width/2, lerpedAverage*1000, lerpedAverage*1000);
     circle(width+-lerpedAverage*1000, height/2, lerpedAverage*1000);
@@ -90,13 +89,36 @@ void drawScreenThree() {
   float c = cos(angle);
   translate(width/2, height/2);
   rotate(c);
-  fill(lerpedAverage*500, 255,255);
-  rect(0,0,lerpedAverage*1000,180/2);
-  
-
+  fill(lerpedAverage*500, 255, 255);
+  rect(0, 0, lerpedAverage*1000, 180/2);
 }
 void drawScreenFour() {
-}
+ float sum= 0;
+ int y = 0;
+ 
+  while(y<=width){
+    line(y*lerpedAverage,50,y,450);
+    line(y,50,y*lerpedAverage,450);
+    y=y+ width/10;
+  }
+  for(int x=0;x<posX.length;x++){
+     fill(lerpedAverage*500,lerpedAverage*500, random(255));
+    ellipse(posX[x], posY[x], size[x], size[x]);
+    for (int i = 0; i<ab.size(); i++) {
+    sum +=abs(ab.get(i));
+    float average = sum/(float)ab.size();
+    noStroke();
+    fill(lerpedAverage*500,lerpedAverage*500,random(255));
+    ellipse(posX[x], posY[x], size[x]*lerpedAverage, size[x]);
+    fill(0);
+    ellipse(posX[x], posY[x], size[x]/3, size[x]/3);
+    lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+  }
+  }
+
+  
+  }
+
 void drawScreenFive() {
 }
 void drawScreenSix() {

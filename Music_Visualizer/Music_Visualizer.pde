@@ -42,7 +42,7 @@ float angle;
 
 void draw() {
   background(random(255)*lerpedAverage, random(255)*lerpedAverage, random(255)*lerpedAverage);
-  drawScreenFive();
+  drawScreenSix();
   stroke(255);
 
   timer();
@@ -166,6 +166,23 @@ void drawScreenFive() {
 
 }
 void drawScreenSix() {
-}
+   float sum = 0;
+  for (int i = 0; i<ab.size(); i++) {
+    sum +=abs(ab.get(i));
+    float average = sum/(float)ab.size();
+    //background(0);
+    fill(lerpedAverage*500, lerpedAverage*500, random(255));
+    circle(50*lerpedAverage*100, height/2, 50);
+    circle(width-50*lerpedAverage*100, height/2, 50);
+    circle(50*lerpedAverage*100, 50*lerpedAverage*100, 50);
+    circle(width/2, 50*lerpedAverage*100, 50);
+    circle(width/2, height-50*lerpedAverage*100, 50);
+    circle(50*lerpedAverage*100, height-50*lerpedAverage*100, 50);
+    circle(width-50*lerpedAverage*100, height-50*lerpedAverage*100, 50);
+    circle(width-50*lerpedAverage*100, 50*lerpedAverage*100, 50);
+    lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+  }
+  }
+
 void timer() {
 }

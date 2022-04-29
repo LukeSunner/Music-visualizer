@@ -39,22 +39,44 @@ void setup() {
 float average;
 float lerpedAverage = 0;
 float angle;
+int func = 0;
 
 void draw() {
   background(random(255)*lerpedAverage, random(255)*lerpedAverage, random(255)*lerpedAverage);
-  drawScreenOne();
+  switch(func){
+    case 0:
+    drawScreenOne();
+    break;
+     case 1:
+    drawScreenTwo();
+    break;
+     case 2:
+    drawScreenThree();
+    break;
+     case 3:
+    drawScreenFour();
+    break;
+     case 4:
+    drawScreenFive();
+    break;
+     case 5:
+    drawScreenSix();
+    break;
+  
+  }
+  
   timer();
 }
 void drawScreenOne() {
   float sum = 0;
-  for (int i = 0; i<ab.size(); i+=20){
-  for (int j = 0; j<ab.size(); j+=20) {
-    sum +=abs(ab.get(i));
-    float average = sum/(float)ab.size();
-    rect(i,j,lerpedAverage*100,lerpedAverage*100);
-    lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+  for (int i = 0; i<ab.size(); i+=20) {
+    for (int j = 0; j<ab.size(); j+=20) {
+      sum +=abs(ab.get(i));
+      float average = sum/(float)ab.size();
+      rect(i, j, lerpedAverage*100, lerpedAverage*100);
+      lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+    }
   }
-}
 }
 void drawScreenTwo() {
   background(0);
@@ -128,13 +150,13 @@ void drawScreenFive() {
   int YCoord = height/2;
   int rectHeight = 40;
   int rectWidth = 30;
-   background(0);
-  for(int j = 0;j<width;j+=5){
+  background(0);
+  for (int j = 0; j<width; j+=5) {
     noStroke();
     float z = map(y, 0, ab.size(), 0, 255);
-      fill(z, 255, 255);
-  rect(j,height/3, 20,30);
-  rect(j,(height/3)*2, 20,30);
+    fill(z, 255, 255);
+    rect(j, height/3, 20, 30);
+    rect(j, (height/3)*2, 20, 30);
   }
   while (x < width) {
     y=0;
@@ -162,10 +184,9 @@ void drawScreenFive() {
       lerpedAverage = lerp(lerpedAverage, average, 0.1f);
     }
   }
-
 }
 void drawScreenSix() {
-   float sum = 0;
+  float sum = 0;
   for (int i = 0; i<ab.size(); i++) {
     sum +=abs(ab.get(i));
     float average = sum/(float)ab.size();
@@ -181,7 +202,31 @@ void drawScreenSix() {
     circle(width-50*lerpedAverage*100, 50*lerpedAverage*100, 50);
     lerpedAverage = lerp(lerpedAverage, average, 0.1f);
   }
-  }
+}
 
 void timer() {
+  int seconds = millis()/1000;
+  println(seconds);
+  if(seconds == 17){
+  func=1;
+  }
+  if(seconds == 37){
+  func=2;
+  }
+  if(seconds == 76){
+  func=3;
+  }
+  if(seconds == 97){
+  func=4;
+  }
+  if(seconds == 156){
+  func=5;
+  }
+  if(seconds == 214){
+  seconds = 0;
+    func = 0;
+  }
+  }
+ 
+  
 }

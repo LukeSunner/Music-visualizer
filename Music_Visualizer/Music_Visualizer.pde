@@ -9,7 +9,7 @@ Minim minim; //Minim Library
 AudioBuffer ab; //Gives access to the samples
 AudioPlayer ap; // Used to play audio
 AudioInput ai; //Takes in audio
-BeatDetect Beat;
+BeatDetect Beat; //Used to detect files beat
 
 int num = 15;
 float[] posX = new float[num];
@@ -19,14 +19,13 @@ float[] size = new float[num];
 void setup() {
   size(1024, 512); // The size of the window in pixels.
   colorMode(HSB); // The colour mode that is used in the project.
-  rectMode(CENTER);
+  rectMode(CENTER); // setting rect mode to center
   minim = new Minim(this); // Calling the minim sound library.
   ai = minim.getLineIn(Minim.STEREO, 1024);
   ap = minim.loadFile("song.mp3");//audio from file
   ap.play(); // Used to play the sudio file assosiated.
-  ap.loop();
-  Beat = new BeatDetect();
-
+  ap.loop();// used to make the music track loop
+  Beat = new BeatDetect();// calling the beat 
   ab = ap.mix;
   lerpedAverage = average;
   for (int x = 0; x<posX.length; x++) {
@@ -43,7 +42,7 @@ int func = 0;
 
 void draw() {
   background(random(255)*lerpedAverage, random(255)*lerpedAverage, random(255)*lerpedAverage);
-  switch(func){
+  switch(func){//using switch statement to call funtions
     case 0:
     drawScreenOne();
     break;
@@ -158,7 +157,7 @@ void drawScreenFive() {
     rect(j, height/3, 20, 30);
     rect(j, (height/3)*2, 20, 30);
   }
-  while (x < width) {
+  while (x < width) {// nested while loop 
     y=0;
     while ( y < height) {
       stroke(0);
@@ -204,7 +203,7 @@ void drawScreenSix() {
   }
 }
 
-void timer() {
+void timer() {// timer function used to control switch statement. 
   int seconds = millis()/1000;
   println(seconds);
   if(seconds == 17){
@@ -229,4 +228,3 @@ void timer() {
   }
  
   
-}

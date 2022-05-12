@@ -24,7 +24,7 @@ void setup() {
   ai = minim.getLineIn(Minim.STEREO, 1024);
   ap = minim.loadFile("song.mp3");//audio from file
   ap.play(); // Used to play the sudio file assosiated.
-  ap.loop();// used to make the music track loop
+
   Beat = new BeatDetect();// calling the beat 
   ab = ap.mix;
   lerpedAverage = average;
@@ -32,6 +32,7 @@ void setup() {
     posX[x] = random(0, width);
     posY[x] = random(0, height);
     size[x] = random(50, 100);
+
   }
 }
 
@@ -63,9 +64,10 @@ void draw() {
     break;
   
   }
-  
+
   timer();
 }
+
 void drawScreenOne() {
   float sum = 0;
   for (int i = 0; i<ab.size(); i+=20) {
@@ -205,6 +207,8 @@ void drawScreenSix() {
 
 void timer() {// timer function used to control switch statement. 
   int seconds = millis()/1000;
+
+
   println(seconds);
   if(seconds == 17){
   func=1;
@@ -225,6 +229,18 @@ void timer() {// timer function used to control switch statement.
   seconds = 0;
     func = 0;
   }
-  }
- 
   
+        if(keyPressed ){
+     if(key=='p' ){
+     ap.pause();
+    
+     }
+   if(key=='r'){
+     ap.play();
+   }
+   if(key=='q'){
+     ap.rewind();
+   }
+  }
+  
+}
